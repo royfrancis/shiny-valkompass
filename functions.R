@@ -1,4 +1,4 @@
-# shiny-certificate
+# shiny-valkompass
 # functions
 
 library(ggplot2)
@@ -10,7 +10,7 @@ library(dplyr)
 
 # variables --------------------------------------------------------------------
 
-if (!"barlow" %in% sysfonts::font_families()) font_add_google("Barlow", "barlow")
+if (!"Barlow" %in% sysfonts::font_families()) font_add("Barlow", "www/Barlow-Regular.ttf")
 showtext_opts(dpi = 300)
 
 theme_report <- function (basesize=14,font=NA) {
@@ -74,6 +74,8 @@ rc <- function(...) {
 
 plot_pca <- function(dfr,path){
   
+  showtext::showtext_auto()
+  
   plt <- ggplot(dfr)+
     geom_hline(aes(yintercept=0),color="grey90",size=0.4,alpha=0.5)+
     geom_vline(aes(xintercept=0),color="grey90",size=0.4,alpha=0.5)+
@@ -88,11 +90,8 @@ plot_pca <- function(dfr,path){
     theme(plot.caption=element_text(hjust=0.5,size=5.5),
           legend.title = element_text(size=6))
   
-  png(file.path(path,"valkompass-pca.png"),height=4,width=5.5)
-  showtext_begin()
-  print(plt)
-  showtext_end()
-  dev.off()
+  ggsave(file.path(path,"valkompass-pca.png"),height=4,width=5.5)
+  showtext::showtext_auto(FALSE)
 }
 
 

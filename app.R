@@ -1,4 +1,4 @@
-## shiny-valkompass
+# shiny-valkompass
 
 source("functions.R")
 
