@@ -25,7 +25,7 @@ The app should be available through a web browser at `http://0.0.0.0:8787`.
 Install the following R packages:
 
 ```
-install.packages(c("dplyr", "ggplot2", "ggh4x", "shiny", "shinythemes", "showtext"))
+install.packages(c("curl", "dplyr", "ggplot2", "ggh4x", "shiny", "shinythemes", "showtext"))
 ```
 
 This repo is not an R package. Clone this repo and execute the R command `shiny::runApp("app.R")` in the root directory.

@@ -10,7 +10,7 @@ library(dplyr)
 
 # variables --------------------------------------------------------------------
 
-if (!"gfont" %in% sysfonts::font_families()) font_add_google("Barlow", "gfont")
+if (!"barlow" %in% sysfonts::font_families()) font_add_google("Barlow", "barlow")
 showtext_opts(dpi = 300)
 
 theme_report <- function (basesize=14,font=NA) {
@@ -51,58 +51,6 @@ fn_version <- function() {
   return("v1.0.0")
 }
 
-# validation
-fn_validate <- function(input, message1, message2, message3) {
-  
-  if (missing(message1)) message1 <- "Input is missing."
-  gcheck <- length(grep("Argument \\'\\w+\\' missing", message1))
-  if (gcheck == 1) {
-    m1 <- sub("Argument ", "", message1)
-    m1 <- sub(" missing.", "", m1)
-  }
-
-  if (all(is.null(input))) {
-    if (missing(message1)) message1 <- "Input is missing."
-    print(message1)
-  } else if (is.numeric(input) | is.list(input)) {
-    if (all(is.na(input))) {
-      if (missing(message2)) {
-        if (gcheck == 1) message2 <- paste0("Argument ", m1, " is NA.", sep = "")
-        if (gcheck != 1) message2 <- "Input is NA."
-      }
-      print(message2)
-    }
-  } else if (is.character(input)) {
-    if (all(nchar(input) == 0)) {
-      if (missing(message3)) {
-        if (gcheck == 1) message3 <- paste0("Argument ", m1, " is empty.", sep = "")
-        if (gcheck != 1) message3 <- "Input is empty."
-      }
-      print(message3)
-    }
-  } else {
-    NULL
-  }
-}
-
-# validate numeric
-fn_validate_numeric <- function(input) {
-  if (is.na(as.numeric(input))) print("Input is not a numeric.")
-}
-
-# validate image
-fn_validate_im <- function(x) {
-  if (!is.null(x)) {
-    y <- tolower(sub("^.+[.]", "", basename(x$datapath)))
-    if (!y %in% c("jpg", "png", "jpeg", "gif")) {
-      return("Image must be one of JPG/JPEG, PNG or GIF formats.")
-    }
-    if ((x$size / 1024 / 1024) > 1) {
-      return("Image must be less than 1MB in size.")
-    }
-  }
-}
-
 #' @title Add bootstrap row+column
 #' @description Wrapper function to add bootstrap row and column
 #' @param ... UI builder elements
@@ -125,6 +73,9 @@ rc <- function(...) {
 #saveRDS(p2,"pca-2022.Rds")
 
 plot_pca <- function(dfr,path){
+  
+  showtext_auto()
+  
   plt <- ggplot(dfr)+
     geom_hline(aes(yintercept=0),color="grey90",size=0.4,alpha=0.5)+
     geom_vline(aes(xintercept=0),color="grey90",size=0.4,alpha=0.5)+
@@ -140,6 +91,8 @@ plot_pca <- function(dfr,path){
           legend.title = element_text(size=6))
   
   ggsave(file.path(path,"valkompass-pca.png"),plt,height=4,width=5.5)
+  
+  showtext_auto(FALSE)
 }
 
 
