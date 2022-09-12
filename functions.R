@@ -74,8 +74,6 @@ rc <- function(...) {
 
 plot_pca <- function(dfr,path){
   
-  showtext_auto()
-  
   plt <- ggplot(dfr)+
     geom_hline(aes(yintercept=0),color="grey90",size=0.4,alpha=0.5)+
     geom_vline(aes(xintercept=0),color="grey90",size=0.4,alpha=0.5)+
@@ -90,9 +88,11 @@ plot_pca <- function(dfr,path){
     theme(plot.caption=element_text(hjust=0.5,size=5.5),
           legend.title = element_text(size=6))
   
-  ggsave(file.path(path,"valkompass-pca.png"),plt,height=4,width=5.5)
-  
-  showtext_auto(FALSE)
+  png(file.path(path,"valkompass-pca.png"),height=4,width=5.5)
+  showtext_begin()
+  print(plt)
+  showtext_end()
+  dev.off()
 }
 
 
