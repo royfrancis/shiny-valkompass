@@ -1,4 +1,4 @@
-# shiny-certificate
+# shiny-valkompass
 
 [![gh-actions-build-status](https://github.com/royfrancis/shiny-valkompass/workflows/build/badge.svg)](https://github.com/royfrancis/shiny-valkompass/actions?workflow=build) [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/royfrancis/shiny-valkompass?label=dockerhub)](https://hub.docker.com/repository/docker/royfrancis/shiny-valkompass)
 
